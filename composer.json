@@ -1,5 +1,13 @@
 {
+  "autoload": {
+    "psr-4": {"GoogleAdsApiService\\": "src/"}
+  },
   "require": {
-    "googleads/google-ads-php": "*"
+    "ext-bcmath": "*",
+    "googleads/google-ads-php": "v17.1.0",
+    "google/protobuf": "^3.22"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.6"
   }
 }
