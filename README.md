@@ -2,16 +2,10 @@
 
 ## Requirements
 
+* Developer Token (for obtain developer token need create Google Cloud Console project)
+* Customer Id (The client customer ID is the account number of the Google Ads client account you want to manage with the API, usually in the form 123-456-7890)
 
-for obtain developer token need create Google Cloud Console project
-and activate Google Ads API
-dev token https://developers.google.com/google-ads/api/docs/first-call/dev-token
-
-Client customer ID
-The client customer ID is the account number of the Google Ads client account you want to manage with the API, usually in the form 123-456-7890
-
-
-In process update ad or keyword I got next error 
+In process update ad and keyword I got next error: 
 ````shell
 Fatal error: Uncaught Google\ApiCore\ApiException: {
     "message": "Request contains an invalid argument.",

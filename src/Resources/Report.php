@@ -24,14 +24,16 @@ class Report extends Blueprint\Resource
      * @return array
      * @throws ApiException
      */
-    public function getCampaignReport(): array
+    public function getCampaignReport(string $campaignResourceName): array
     {
         $this->setResult();
+        $id = $this->getIdFromResourceName($campaignResourceName);
         $googleAdsServiceClient = $this->getClient()->getGoogleAdsServiceClient();
 
-        $query = 'SELECT campaign.id, campaign.name, 
+        $query = "SELECT campaign.id, campaign.name, 
                          metrics.impressions, metrics.clicks, metrics.conversions, metrics.cost_micros
-                  FROM campaign';
+                  FROM campaign
+                  WHERE campaign.id = $id";
 
         $stream = $googleAdsServiceClient->searchStream($this->getCustomerId(), $query);
 
@@ -103,9 +105,10 @@ class Report extends Blueprint\Resource
      * @return array
      * @throws ApiException
      */
-    public function getGroupReport(int $campaignId): array
+    public function getGroupReport(string $campaignResourceName): array
     {
         $this->setResult();
+        $campaignId = $this->getIdFromResourceName($campaignResourceName);
         $googleAdsServiceClient = $this->getClient()->getGoogleAdsServiceClient();
 
         $query = "SELECT ad_group.id, ad_group.name, metrics.impressions, metrics.clicks, metrics.conversions, metrics.cost_micros
@@ -143,9 +146,10 @@ class Report extends Blueprint\Resource
      * @return array
      * @throws ApiException
      */
-    public function getAdReport(int $id): array
+    public function getAdReport(string $adResourceName): array
     {
         $this->setResult();
+        $id = $this->getIdFromResourceName($adResourceName);
         $googleAdsServiceClient = $this->getClient()->getGoogleAdsServiceClient();
 
         $query = "SELECT ad_group_ad.ad.id, ad_group_ad.ad.name, 
@@ -188,5 +192,11 @@ class Report extends Blueprint\Resource
         return $this->result;
     }
 
+    private function getIdFromResourceName(string $resourceName): string
+    {
+        $matches = '';
+        preg_match('/\d+$/',$resourceName,$matches);
 
+        return $matches[0];
+    }
 }

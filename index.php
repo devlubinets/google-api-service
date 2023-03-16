@@ -11,10 +11,6 @@ use GoogleAdsApiService\Resources\Report;
 
 require __DIR__ . '/vendor/autoload.php';
 
-//phpinfo();
-
-$adGroup = '146054581653';
-
 $config['loginCustomerId'] = '5692699346';
 $config['customerId'] = '1024228948';
 $config['developerToken'] = 'hEX_R_Tc5s_MsxQ0RQ7Arg';
@@ -82,17 +78,17 @@ $campaignResource->update($newCampaign);
 $groupResource->update($group, 20000);
 
 //update Keyword todo doesn't work
-$cus = '1024228948';
-$g = '146595614323';
-$c = '146595614323~303183403678';
-$adsKeywordResource->update($cus, $g, $c);
+$customerId = '1024228948';
+$group = '146595614323';
+$criteria = '146595614323~303183403678';
+//$adsKeywordResource->update($customerId, $group, $criteria);
 //update Ads todo doesn't work
-$adsResource->update($ad);
+//$adsResource->update($ad);
 
 
 // Statistic
-//$reports = new Report($s->getGoogleClient(), $s->getCustomerId());
-//var_dump($reports->getCampaignReport());
-//var_dump($reports->getCustomerReport());
-//var_dump($reports->getGroupReport($newCampaign));
-//$reports->getAdReport('648809678391');
+$reports = new Report($s->getGoogleClient(), $s->getCustomerId());
+var_dump($reports->getCampaignReport($newCampaign));
+var_dump($reports->getCustomerReport());
+var_dump($reports->getGroupReport($newCampaign));
+$reports->getAdReport($ad);
